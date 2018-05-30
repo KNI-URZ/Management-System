@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by Marcin Mrukowicz on 2018-01-31.
  */
@@ -20,5 +22,17 @@ public class ContributorController {
     private Contributor addContributor(@RequestBody Contributor contributor) {
         contributorRepository.save(contributor);
         return contributor;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/deleteContributor")
+    private Contributor deleteContributor(@RequestBody Contributor contributor) {
+        contributorRepository.delete(contributor);
+        return contributor;
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/getAllContributors")
+    private List<Contributor> getAllContributors() {
+        return (List<Contributor>) contributorRepository.findAll();
     }
 }

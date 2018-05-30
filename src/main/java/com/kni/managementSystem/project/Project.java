@@ -20,6 +20,9 @@ public class Project {
     @Column(columnDefinition = "varchar")
     private String name;
 
+    @Column(columnDefinition = "varchar")
+    private String repositoryUrl;
+
     @ManyToMany(cascade = {})
     @JoinTable(name="project_contributor", joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "contributor_id", referencedColumnName = "id"))
@@ -42,6 +45,14 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRepositoryUrl() {
+        return repositoryUrl;
+    }
+
+    public void setRepositoryUrl(String repositoryUrl) {
+        this.repositoryUrl = repositoryUrl;
     }
 
     public Set<Contributor> getContributors() {
