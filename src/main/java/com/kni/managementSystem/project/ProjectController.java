@@ -2,6 +2,7 @@ package com.kni.managementSystem.project;
 
 import com.kni.managementSystem.contributor.Contributor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +27,9 @@ public class ProjectController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/deleteProject")
-    private void deleteProject(@RequestBody Project project) {
+    private Project deleteProject(@RequestBody Project project) {
         projectRepository.delete(project);
+        return project;
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/getProjectByName")
@@ -45,5 +47,29 @@ public class ProjectController {
         return (List<Project>) projectRepository.findAll();
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/getAllArchivedProjects")
+    private List<Project> getAllArchivedProjects() {
+        return projectRepository.findAllByIsArchived(true);
+    }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/getAllActiveProjects")
+    private List<Project> getAllActiveProjects() {
+        return projectRepository.findAllByIsArchived(false);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/archiveProject")
+    private Project archiveProject(@RequestBody Project project) {
+        project.setArchived(true);
+        projectRepository.save(project);
+        return project;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/archiveProjects")
+    private List<Project> archiveProjects(@RequestBody List<Project> projects) {
+        for (Project p : projects) {
+            p.setArchived(true);
+            projectRepository.save(p);
+        }
+        return projects;
+    }
 }

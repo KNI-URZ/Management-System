@@ -18,6 +18,8 @@ public class Contributor {
     private String surname;
     @Column
     private String year;
+    @Column
+    private Boolean isActive;
 
     public Long getId() {
         return id;
@@ -49,5 +51,13 @@ public class Contributor {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

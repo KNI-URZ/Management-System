@@ -31,6 +31,9 @@ public class Project {
     @ManyToOne(targetEntity = Type.class, fetch = FetchType.LAZY)
     private Type typeOfProject;
 
+    @Column
+    private Boolean isArchived;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +72,13 @@ public class Project {
 
     public void setTypeOfProject(Type typeOfProject) {
         this.typeOfProject = typeOfProject;
+    }
+
+    public Boolean getArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(Boolean archived) {
+        isArchived = archived;
     }
 }
